@@ -4,6 +4,9 @@ module SloubyVolley.State {
 
     preload() {
       this.preloadBar = this.add.sprite(290, 290, 'preload-bar');
+
+      this.load.image('red', 'assets/images/red.png');
+      this.load.image('blue', 'assets/images/blue.png');
     }
 
     create() {
