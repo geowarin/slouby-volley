@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Slouby volley</title>
+
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <div id="-slouby-volley" class="game"></div>
+
+    <!-- build:remove -->
+    <script src="http://localhost:35729/livereload.js"></script>
+    <!-- /build -->
+
+    <!-- build:js all.min.js -->
+    <!-- bower:js -->
+    <script src="vendor/phaser-official/build/phaser.js"></script>
+    <!-- endinject -->
+    <script src="main.js"></script>
+    <!-- /build -->
+
+    <script>
+      window.onload = function() {
+        new SloubyVolley.Game();
+      };
+    </script>
+
+</body>
+</html>
