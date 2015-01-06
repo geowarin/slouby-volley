@@ -7,6 +7,7 @@ module SloubyVolley.State {
 
       this.load.image('red', 'assets/images/red.png');
       this.load.image('blue', 'assets/images/blue.png');
+      this.load.image('ball', 'assets/images/ball.png');
     }
 
     create() {
