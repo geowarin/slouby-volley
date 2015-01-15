@@ -14,14 +14,17 @@ module SloubyVolley.State {
       this.player = this.add.sprite(32, 500, 'red');
       this.physics.enable(this.player, Phaser.Physics.ARCADE);
       this.player.body.gravity.y = 2600;
-      this.player.body.bounce.y = 0.2;
+      //this.player.body.bounce.y = 0.2;
       this.player.body.collideWorldBounds = true;
+      this.player.body.immovable = true;
       //this.player.body.setSize(20, 32, 5, 16);
 
       this.ball = this.add.sprite(50, 100, 'ball');
       this.physics.enable(this.ball, Phaser.Physics.ARCADE);
       this.ball.body.collideWorldBounds = true;
-      this.ball.body.gravity.y = 1200;
+      this.ball.body.gravity.y = 1800;
+      this.ball.body.maxVelocity.setTo(600, 1000);
+
       this.ball.body.bounce.y = 1;
       this.ball.body.bounce.x = 1;
     }
@@ -35,7 +38,7 @@ module SloubyVolley.State {
       var cursors = this.input.keyboard.createCursorKeys();
       var jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.UP);
 
-      var speed = 250;
+      var speed = 300;
       if (cursors.left.isDown) {
         this.player.body.velocity.x = -speed;
       } else if (cursors.right.isDown) {
@@ -55,9 +58,15 @@ module SloubyVolley.State {
     }
 
     reflect(blob:Phaser.Sprite, ball:Phaser.Sprite) {
-      //var angle = this.physics.arcade.angleBetween(blob, ball);
-      //this.physics.arcade.accelerationFromRotation(angle, 200, ball.body.acceleration);
-      //ball.body.velocity.y *= -ball.body.bounce.y;
+      var angle = this.physics.arcade.angleBetween(blob, ball);
+      ball.body.velocity.x = Math.cos(angle) * 500;
+      //ball.body.velocity.y *= -ball.body.bounce.y ;
     }
+
+    //render() {
+    //this.game.debug.bodyInfo(sprite1, 32, 32);
+    //this.game.debug.body(this.player);
+    //this.game.debug.body(this.ball);
+    //}
   }
 }
