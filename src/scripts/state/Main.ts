@@ -1,4 +1,5 @@
 module SloubyVolley.State {
+
   export class Main extends Phaser.State {
 
     player:Phaser.Sprite;
@@ -25,7 +26,7 @@ module SloubyVolley.State {
       this.ball.body.bounce.x = 1;
     }
 
-    jumping:boolean = false;
+    canJump:boolean = false;
 
     update() {
       this.physics.arcade.collide(this.player, this.ball, null, this.reflect, this);
@@ -42,38 +43,20 @@ module SloubyVolley.State {
       }
 
       if (this.player.body.onFloor()) {
-        this.jumping = false;
+        this.canJump = true;
       }
 
-      if (this.upInputIsActive(250)) {
+      if (this.canJump && jumpButton.downDuration(250)) {
         this.player.body.velocity.y = -700;
-        this.jumping = true;
-      }
-
-      if (this.jumping && this.upInputReleased()) {
-        this.jumping = false;
+        this.canJump = true;
+      } else {
+        this.canJump = false;
       }
     }
-
-    upInputIsActive(duration) {
-      var isActive = this.input.keyboard.downDuration(Phaser.Keyboard.UP, duration)
-        || (this.game.input.activePointer.justPressed(duration + 1000 / 60) &&
-        this.game.input.activePointer.x > this.game.width / 4 &&
-        this.game.input.activePointer.x < this.game.width / 2 + this.game.width / 4);
-
-      return isActive;
-    }
-
-    upInputReleased() {
-      var released = this.input.keyboard.upDuration(Phaser.Keyboard.UP)
-        || this.game.input.activePointer.justReleased();
-      return released;
-    }
-
 
     reflect(blob:Phaser.Sprite, ball:Phaser.Sprite) {
-      var angle = this.physics.arcade.angleBetween(blob, ball);
-      this.physics.arcade.accelerationFromRotation(angle, 200, ball.body.acceleration);
+      //var angle = this.physics.arcade.angleBetween(blob, ball);
+      //this.physics.arcade.accelerationFromRotation(angle, 200, ball.body.acceleration);
       //ball.body.velocity.y *= -ball.body.bounce.y;
     }
   }
